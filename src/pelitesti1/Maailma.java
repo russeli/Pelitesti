@@ -26,17 +26,18 @@ public class Maailma {
         
         // älä muuta alustojen luontia - Alusta(x, y, leveys, korkeus)
         this.alustat = new ArrayList<Alusta>();
-        this.alustat.add(new Alusta(-20, -20, 40, 640));
-        this.alustat.add(new Alusta(780, -20, 40, 640));
-        this.alustat.add(new Alusta(-20, 580, 840, 40));
-        this.alustat.add(new Alusta(45, 500, 499, 16));
-        this.alustat.add(new Alusta(260, 420, 500, 16));
-        this.alustat.add(new Alusta(40, 340, 500, 16));
-        this.alustat.add(new Alusta(260, 260, 500, 16));
-        this.alustat.add(new Alusta(40, 180, 500, 16));
-        this.alustat.add(new Alusta(260, 100, 500, 16));
-        this.alustat.add(new Alusta(40, 20, 500, 16));
-        this.alustat.add(new Alusta(40, 450, 16, 66));
+        this.alustat.add(new Alusta(-32, -32, 64, 640));
+        this.alustat.add(new Alusta(768, -20, 40, 640));
+        this.alustat.add(new Alusta(-32, 576, 960, 64));
+        
+        this.alustat.add(new Alusta(64, 448, 512, 32));
+        this.alustat.add(new Alusta(192, 320, 512, 32));/*
+        this.alustat.add(new Alusta(64, 340, 480, 32));
+        this.alustat.add(new Alusta(256, 260, 500, 32));
+        this.alustat.add(new Alusta(64, 180, 480, 32));
+        this.alustat.add(new Alusta(256, 100, 500, 32));
+        this.alustat.add(new Alusta(64, 20, 480, 32));
+        this.alustat.add(new Alusta(64, 450, 32, 66));*/
         // voit lisätä toki omia alustoja halutessasi!
         this.viholliset = new ArrayList<Vihollinen>();
         //this.viholliset.add(new Vihollinen(300, 300, 16, 16));
