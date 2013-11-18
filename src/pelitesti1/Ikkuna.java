@@ -37,7 +37,8 @@ public class Ikkuna extends JPanel {
         g.setColor(Color.RED);
         
         Pelihahmo hahmo = maailma.getPelihahmo();
-        g.fillOval(hahmo.getX(), hahmo.getY(), hahmo.getHalkaisija(), hahmo.getHalkaisija());
+        //g.fillOval(hahmo.getX(), hahmo.getY(), hahmo.getHalkaisija(), hahmo.getHalkaisija());
+        g.drawImage(hahmo.getAnimation().getSprite(), hahmo.getX(), hahmo.getY(), null);
         
         g.setColor(Color.GREEN);
         

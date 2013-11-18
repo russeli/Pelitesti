@@ -2,6 +2,7 @@ package pelitesti1;
 
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Pelihahmo {
@@ -20,6 +21,16 @@ public class Pelihahmo {
     private int liikeY;
     private int liikeX;
     
+    private BufferedImage[] walkingLeft = {Sprite.getSprite(0, 1), Sprite.getSprite(2, 1)}; // Gets the upper left images of my sprite sheet
+    private BufferedImage[] walkingRight = {Sprite.getSprite(0, 2), Sprite.getSprite(2, 2)};
+    private BufferedImage[] standing = {Sprite.getSprite(1, 0)};
+    
+    private Animation walkLeft = new Animation(walkingLeft, 10);
+    private Animation walkRight = new Animation(walkingRight, 10);
+    private Animation stand = new Animation(standing, 10);
+    
+    private Animation animation;
+    
     private ArrayList<Ammus> ammukset;
     
     
@@ -36,6 +47,9 @@ public class Pelihahmo {
         this.katseenSuunta=1;
         this.hp=5;
         this.ammukset = new ArrayList();
+        
+        Sprite.loadSprite("kuva");
+        this.animation = stand;
     }
     
     public Pelihahmo(int x, int y, int leveys, int korkeus) {
@@ -51,6 +65,9 @@ public class Pelihahmo {
         this.katseenSuunta=1;
         this.hp=5;
         this.ammukset = new ArrayList();
+        
+        Sprite.loadSprite("kuva");
+        this.animation = stand;
     }
 
     public int getX() {
@@ -73,6 +90,8 @@ public class Pelihahmo {
             this.liikeY = -8;
         }
         this.x = this.x + liikeX;
+        
+        animation.update();
     }
     
     public void liikuKuva(int painovoima) {
@@ -83,6 +102,8 @@ public class Pelihahmo {
             this.liikeY = -8;
         }
         this.x = this.x + liikeX;
+        
+        animation.update();
     }
     
     public void yritaKayttaaAlustaa(Alusta alusta) {
@@ -140,6 +161,11 @@ public class Pelihahmo {
             return false;
         }
     }
+
+    public Animation getAnimation() {
+        return animation;
+    }
+    
     public void hyppaa() {
         if(liikeY != 0) {
                 return;
@@ -167,6 +193,20 @@ public class Pelihahmo {
         liikeX=5*k;
         if(k!=0)
             katseenSuunta=k;
+        
+        if(k<0){
+            animation = walkLeft;
+            animation.start();
+        }
+        else if(k>0){
+            animation = walkRight;
+            animation.start();
+        }
+        else{
+            animation = stand;
+            animation.stop();
+            animation.reset();
+        }
     }
     
     public void reset(){

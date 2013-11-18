@@ -41,7 +41,7 @@ public class Maailma {
         this.viholliset = new ArrayList<Vihollinen>();
         //this.viholliset.add(new Vihollinen(300, 300, 16, 16));
 
-        this.pelihahmo = new Pelihahmo(50, 200, 15);
+        this.pelihahmo = new Pelihahmo(50, 200, 32);
     }
 /*
     public void nopeuta() {

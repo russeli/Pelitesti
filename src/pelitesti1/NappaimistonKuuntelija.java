@@ -57,12 +57,12 @@ public class NappaimistonKuuntelija implements KeyListener {
             }
         }
         
-        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT && !oikeaPainettu) {
             oikeaPainettu=true;
             pelihahmo.liikuX(1);
         }
         
-        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+        if (e.getKeyCode() == KeyEvent.VK_LEFT && !vasenPainettu) {
             vasenPainettu=true;
             pelihahmo.liikuX(-1);
         }
