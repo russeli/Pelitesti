@@ -23,11 +23,13 @@ public class Pelihahmo {
     
     private BufferedImage[] walkingLeft = {Sprite.getSprite(0, 1), Sprite.getSprite(2, 1)}; // Gets the upper left images of my sprite sheet
     private BufferedImage[] walkingRight = {Sprite.getSprite(0, 2), Sprite.getSprite(2, 2)};
-    private BufferedImage[] standing = {Sprite.getSprite(1, 0)};
+    private BufferedImage[] standingLeft = {Sprite.getSprite(1, 1)};
+    private BufferedImage[] standingRight = {Sprite.getSprite(1, 2)};
     
-    private Animation walkLeft = new Animation(walkingLeft, 10);
-    private Animation walkRight = new Animation(walkingRight, 10);
-    private Animation stand = new Animation(standing, 10);
+    private Animation walkLeft = new Animation(walkingLeft, 7);
+    private Animation walkRight = new Animation(walkingRight, 7);
+    private Animation standLeft = new Animation(standingLeft, 7);
+    private Animation standRight = new Animation(standingRight, 7);
     
     private Animation animation;
     
@@ -49,7 +51,7 @@ public class Pelihahmo {
         this.ammukset = new ArrayList();
         
         Sprite.loadSprite("kuva");
-        this.animation = stand;
+        this.animation = standRight;
     }
     
     public Pelihahmo(int x, int y, int leveys, int korkeus) {
@@ -67,7 +69,7 @@ public class Pelihahmo {
         this.ammukset = new ArrayList();
         
         Sprite.loadSprite("kuva");
-        this.animation = stand;
+        this.animation = standRight;
     }
 
     public int getX() {
@@ -193,7 +195,10 @@ public class Pelihahmo {
             animation.start();
         }
         else{
-            animation = stand;
+            if(k<0)
+                animation = standLeft;
+            else if(k>0)
+                animation = standRight;
             animation.stop();
             animation.reset();
         }
