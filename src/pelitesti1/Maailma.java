@@ -13,6 +13,7 @@ public class Maailma {
     private ArrayList<Alusta> alustat;
     private Pelihahmo pelihahmo;
     private ArrayList<Vihollinen> viholliset;
+    private boolean kameraPaikallaanX, kameraPaikallaanY;
     
     public final static int MAIN=0, GAME=1, PAUSE=2;
         
@@ -31,9 +32,9 @@ public class Maailma {
         this.alustat.add(new Alusta(-32, 576, 960, 64));
         
         this.alustat.add(new Alusta(64, 448, 512, 32));
-        this.alustat.add(new Alusta(192, 320, 512, 32));/*
-        this.alustat.add(new Alusta(64, 340, 480, 32));
-        this.alustat.add(new Alusta(256, 260, 500, 32));
+        this.alustat.add(new Alusta(192, 320, 512, 32));
+        this.alustat.add(new Alusta(64, 192, 512, 32));
+        this.alustat.add(new Alusta(192, 64, 512, 32));/*
         this.alustat.add(new Alusta(64, 180, 480, 32));
         this.alustat.add(new Alusta(256, 100, 500, 32));
         this.alustat.add(new Alusta(64, 20, 480, 32));
@@ -52,44 +53,26 @@ public class Maailma {
     public void liikuta() {
         
         ArrayList<Ammus> ammukset = pelihahmo.getAmmukset();
+        kameraPaikallaanX = true;
+        kameraPaikallaanY = true;
         
-        if(pelihahmo.getY()<100 && pelihahmo.getLiikeY()>0){
-            
-            for (Alusta alusta : alustat) {
-                alusta.liiku(Math.abs(pelihahmo.getLiikeY()));
-            }
-            for(Ammus ammus : ammukset){
-                ammus.liiku(Math.abs(pelihahmo.getLiikeY()));
-            }
-            for(Vihollinen vihollinen : viholliset){
-                vihollinen.liiku(Math.abs(pelihahmo.getLiikeY()));
-            }
-            this.pelihahmo.liikuKuva(painovoima);
-            
-        }else if(pelihahmo.getY()>500 && pelihahmo.getLiikeY()<0){
-            
-            for (Alusta alusta : alustat) {
-                alusta.liiku(-Math.abs(pelihahmo.getLiikeY()));
-            }
-            for(Ammus ammus : ammukset){
-                ammus.liiku(-Math.abs(pelihahmo.getLiikeY()));
-            }
-            for(Vihollinen vihollinen : viholliset){
-                vihollinen.liiku(Math.abs(pelihahmo.getLiikeY()));
-            }
-            this.pelihahmo.liikuKuva(painovoima);
-            
-        }else{
-            
-            this.pelihahmo.liiku(painovoima);
-            Iterator<Ammus> ite = ammukset.iterator();
-            while(ite.hasNext()){
-                ite.next().liiku(0);
-            }
-            for(Vihollinen vihollinen : viholliset){
-                vihollinen.liiku(Math.abs(pelihahmo.getLiikeY()));
-            }
+        if((pelihahmo.getY()<100 && pelihahmo.getLiikeY()>0) || (pelihahmo.getY()>500 && pelihahmo.getLiikeY()<0)){
+            kameraPaikallaanY=false;
         }
+            
+        for(Vihollinen vihollinen : viholliset){
+            vihollinen.liiku(painovoima, pelihahmo.getLiikeY(), pelihahmo.getLiikeX(), true, kameraPaikallaanY);
+        }
+        
+        for (Alusta alusta : alustat) {
+            alusta.liiku(pelihahmo.getLiikeY(), -pelihahmo.getLiikeX(), true, kameraPaikallaanY);
+        }
+        
+        Iterator<Ammus> ammusIte = ammukset.iterator();
+        while(ammusIte.hasNext()){
+            ammusIte.next().liiku(pelihahmo.getLiikeY(), pelihahmo.getLiikeX(), true, kameraPaikallaanY);
+        }
+        this.pelihahmo.liiku(painovoima, kameraPaikallaanX, kameraPaikallaanY);
         
         // asetetaan hahmo alustalle jos mahdollista
         for (Alusta alusta : alustat){
@@ -145,8 +128,9 @@ public class Maailma {
         // 10 sekuntia)
         this.kierros = this.kierros + 1;
         if(kierros % 300 == 0) {
-            this.viholliset.add(new Vihollinen( alustat.get(0).getX() + alustat.get(0).getLeveys() + (int)(Math.random() * ((764 - alustat.get(0).getX()) + 1)),
-                                                alustat.get(0).getY() + (int)(Math.random() * ((alustat.get(2).getY() - 16 - alustat.get(0).getY()) + 1)), 16, 16));
+            //this.viholliset.add(new Vihollinen( alustat.get(0).getX() + alustat.get(0).getLeveys() + (int)(Math.random() * ((764 - alustat.get(0).getX()) + 1)),
+            //                                    alustat.get(0).getY() + (int)(Math.random() * ((alustat.get(2).getY() - 16 - alustat.get(0).getY()) + 1)), 16, 16));
+            this.viholliset.add(new Vihollinen( alustat.get(0).getX() + alustat.get(0).getLeveys() + 1, alustat.get(0).getY(), 16, 16));
         }
     }
     

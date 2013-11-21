@@ -38,7 +38,10 @@ public class Alusta {
         return korkeus;
     }
 
-    public void liiku(int nopeus) {
-        this.y += nopeus;
+    public void liiku(int nopeusY, int nopeusX, boolean kameraPaikallaanX, boolean kameraPaikallaanY) {
+        if(!kameraPaikallaanY)
+            this.y += nopeusY;
+        if(!kameraPaikallaanX)
+            this.x += nopeusX;
     }
 }

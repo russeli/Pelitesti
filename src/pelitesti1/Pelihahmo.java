@@ -82,26 +82,16 @@ public class Pelihahmo {
         return leveys;
     }
 
-    public void liiku(int painovoima) {
-        this.y = this.y - this.liikeY;
+    public void liiku(int painovoima, boolean kameraPaikallaanX, boolean kameraPaikallaanY) {
         this.liikeY = this.liikeY - painovoima;
+        if(kameraPaikallaanY)
+            this.y = this.y - this.liikeY;
         
         if(this.liikeY < -8) {
             this.liikeY = -8;
         }
-        this.x = this.x + liikeX;
-        
-        animation.update();
-    }
-    
-    public void liikuKuva(int painovoima) {
-        //this.y = this.y - this.liikeY;
-        this.liikeY = this.liikeY - painovoima;
-        
-        if(this.liikeY < -8) {
-            this.liikeY = -8;
-        }
-        this.x = this.x + liikeX;
+        if(kameraPaikallaanX)
+            this.x = this.x + liikeX;
         
         animation.update();
     }
@@ -176,7 +166,7 @@ public class Pelihahmo {
             }*/
         
         if(hyppynro==0){
-            liikeY = 16;
+            liikeY = 17;
             ++hyppynro;
         }
     }
@@ -217,6 +207,10 @@ public class Pelihahmo {
     public int getLiikeY() {
         return liikeY;
     }
+
+    public int getLiikeX() {
+        return liikeX;
+    }
     
     public void setLiikeY(int liikeY) {
         this.liikeY=liikeY;
@@ -225,7 +219,7 @@ public class Pelihahmo {
     public int getHp() {
         return hp;
     }
-
+    
     public void setHp(int hp) {
         this.hp = hp;
     }

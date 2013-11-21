@@ -55,14 +55,16 @@ public class Vihollinen {
         this.korkeus = korkeus;
     }
     
-
-    public void liiku(int painovoima) {
-        this.y = this.y - this.liikeY;
+    public void liiku(int painovoima, int hahmonLiikeY, int hahmonLiikeX, boolean kameraPaikallaanX, boolean kameraPaikallaanY) {
         this.liikeY = this.liikeY - painovoima;
         
         if(this.liikeY < -8) {
             this.liikeY = -8;
         }
+        this.y = this.y - this.liikeY;
+        
+        if(!kameraPaikallaanY)
+            this.y += hahmonLiikeY;
     }
     
     public void liikuKuva(int painovoima) {
