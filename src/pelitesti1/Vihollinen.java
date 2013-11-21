@@ -65,15 +65,9 @@ public class Vihollinen {
         
         if(!kameraPaikallaanY)
             this.y += hahmonLiikeY;
-    }
-    
-    public void liikuKuva(int painovoima) {
-        //this.y = this.y - this.liikeY;
-        this.liikeY = this.liikeY - painovoima;
         
-        if(this.liikeY < -8) {
-            this.liikeY = -8;
-        }
+        if(!kameraPaikallaanX)
+            this.x -= hahmonLiikeX;
     }
     
     public void yritaKayttaaAlustaa(Alusta alusta) {

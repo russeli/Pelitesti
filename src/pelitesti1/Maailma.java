@@ -56,23 +56,25 @@ public class Maailma {
         kameraPaikallaanX = true;
         kameraPaikallaanY = true;
         
-        if((pelihahmo.getY()<100 && pelihahmo.getLiikeY()>0) || (pelihahmo.getY()>500 && pelihahmo.getLiikeY()<0)){
+        if((pelihahmo.getY()<100 && pelihahmo.getLiikeY()>0) || (pelihahmo.getY()>500 && pelihahmo.getLiikeY()<0))  //Jos lähestytään ruudun reunaa, liikutetaan muita hahmon sijaan.
             kameraPaikallaanY=false;
-        }
-            
+        if((pelihahmo.getX()<100 && pelihahmo.getLiikeX()<0) || (pelihahmo.getX()>700 && pelihahmo.getLiikeX()>0))  //Jos lähestytään ruudun reunaa, liikutetaan muita hahmon sijaan.
+            kameraPaikallaanX=false;
+        
         for(Vihollinen vihollinen : viholliset){
-            vihollinen.liiku(painovoima, pelihahmo.getLiikeY(), pelihahmo.getLiikeX(), true, kameraPaikallaanY);
+            vihollinen.liiku(painovoima, pelihahmo.getLiikeY(), pelihahmo.getLiikeX(), kameraPaikallaanX, kameraPaikallaanY);   //Vihollisten liikutus
         }
         
         for (Alusta alusta : alustat) {
-            alusta.liiku(pelihahmo.getLiikeY(), -pelihahmo.getLiikeX(), true, kameraPaikallaanY);
+            alusta.liiku(pelihahmo.getLiikeY(), -pelihahmo.getLiikeX(), kameraPaikallaanX, kameraPaikallaanY);  //Alustojen liikutus
         }
         
         Iterator<Ammus> ammusIte = ammukset.iterator();
         while(ammusIte.hasNext()){
-            ammusIte.next().liiku(pelihahmo.getLiikeY(), pelihahmo.getLiikeX(), true, kameraPaikallaanY);
+            ammusIte.next().liiku(pelihahmo.getLiikeY(), pelihahmo.getLiikeX(), kameraPaikallaanX, kameraPaikallaanY);   //Ammusten liikutus
         }
-        this.pelihahmo.liiku(painovoima, kameraPaikallaanX, kameraPaikallaanY);
+        
+        this.pelihahmo.liiku(painovoima, kameraPaikallaanX, kameraPaikallaanY); //Pelihahmon Liikutus
         
         // asetetaan hahmo alustalle jos mahdollista
         for (Alusta alusta : alustat){
@@ -128,9 +130,8 @@ public class Maailma {
         // 10 sekuntia)
         this.kierros = this.kierros + 1;
         if(kierros % 300 == 0) {
-            //this.viholliset.add(new Vihollinen( alustat.get(0).getX() + alustat.get(0).getLeveys() + (int)(Math.random() * ((764 - alustat.get(0).getX()) + 1)),
-            //                                    alustat.get(0).getY() + (int)(Math.random() * ((alustat.get(2).getY() - 16 - alustat.get(0).getY()) + 1)), 16, 16));
-            this.viholliset.add(new Vihollinen( alustat.get(0).getX() + alustat.get(0).getLeveys() + 1, alustat.get(0).getY(), 16, 16));
+            this.viholliset.add(new Vihollinen( alustat.get(0).getX() + alustat.get(0).getLeveys() + (int)(Math.random() * ((764 - alustat.get(0).getX()) + 1)),        //xPosition
+                                                alustat.get(0).getY() + (int)(Math.random() * ((alustat.get(2).getY() - 16 - alustat.get(0).getY()) + 1)), 16, 16));    //yPosition
         }
     }
     
