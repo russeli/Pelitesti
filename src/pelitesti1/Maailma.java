@@ -56,9 +56,9 @@ public class Maailma {
         kameraPaikallaanX = true;
         kameraPaikallaanY = true;
         
-        if((pelihahmo.getY()<100 && pelihahmo.getLiikeY()>0) || (pelihahmo.getY()>500 && pelihahmo.getLiikeY()<0))  //Jos lähestytään ruudun reunaa, liikutetaan muita hahmon sijaan.
+        if((pelihahmo.getY()<200 && pelihahmo.getLiikeY()>0) || (pelihahmo.getY()>400 && pelihahmo.getLiikeY()<0))  //Jos lähestytään ruudun reunaa, liikutetaan muita hahmon sijaan.
             kameraPaikallaanY=false;
-        if((pelihahmo.getX()<100 && pelihahmo.getLiikeX()<0) || (pelihahmo.getX()>700 && pelihahmo.getLiikeX()>0))  //Jos lähestytään ruudun reunaa, liikutetaan muita hahmon sijaan.
+        if((pelihahmo.getX()<300 && pelihahmo.getLiikeX()<0) || (pelihahmo.getX()>500 && pelihahmo.getLiikeX()>0))  //Jos lähestytään ruudun reunaa, liikutetaan muita hahmon sijaan.
             kameraPaikallaanX=false;
         
         for(Vihollinen vihollinen : viholliset){
@@ -99,9 +99,7 @@ public class Maailma {
             
             Iterator<Ammus> iteAmmus = ammukset.iterator();
             while(iteAmmus.hasNext()){
-                Ammus ammus = iteAmmus.next();
-
-                if(ammus.tarkistaTormaysVihu(vihu)){
+                if(iteAmmus.next().tarkistaTormaysVihu(vihu)){
                     //this.pelihahmo.poistaAmmus(iterator);
                     vihu.setHp(vihu.getHp()-1);
                     if(vihu.getHp()==0){

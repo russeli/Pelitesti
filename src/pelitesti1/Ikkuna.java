@@ -5,7 +5,11 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 public class Ikkuna extends JPanel {
@@ -14,21 +18,31 @@ public class Ikkuna extends JPanel {
     private MenuValinta menuvalinta;
     private int polyx = 130;
     private int polyy = 206;
+    private BufferedImage tausta;
 
     public Ikkuna(Maailma maailma, MenuValinta menuvalinta) {
         this.maailma = maailma;
         this.menuvalinta = menuvalinta;
+        
+        try {
+            tausta = ImageIO.read(new File("res/tausta.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
         Graphics2D g2d = (Graphics2D)g;
-        g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
-        setBackground(Color.BLACK);
+        //g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        setBackground(new Color(83,203,255));
 
-        g.setColor(Color.WHITE);
+        g.setColor(new Color(255,127,39));
 
+        g.drawImage(tausta, -50, this.getHeight()-tausta.getHeight(), null);
+        
         ArrayList<Alusta> alustat = maailma.getAlustat();
         for (Alusta alusta : alustat) {
             g.drawRect(alusta.getX(), alusta.getY(), alusta.getLeveys(), alusta.getKorkeus());
@@ -40,7 +54,7 @@ public class Ikkuna extends JPanel {
         //g.fillOval(hahmo.getX(), hahmo.getY(), hahmo.getHalkaisija(), hahmo.getHalkaisija());
         g.drawImage(hahmo.getAnimation().getSprite(), hahmo.getX(), hahmo.getY(), null);
         
-        g.setColor(Color.GREEN);
+        g.setColor(Color.BLACK);
         
         ArrayList<Ammus> ammukset = hahmo.getAmmukset();
         for(Ammus ammus : ammukset){

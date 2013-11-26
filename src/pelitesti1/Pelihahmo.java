@@ -50,7 +50,7 @@ public class Pelihahmo {
         this.hp=5;
         this.ammukset = new ArrayList();
         
-        Sprite.loadSprite("kuva");
+        Sprite.loadSprite("kuva2");
         this.animation = standRight;
     }
     
@@ -110,7 +110,7 @@ public class Pelihahmo {
         
         Rectangle r = new Rectangle(alusta.getX(),alusta.getY(),alusta.getLeveys(),alusta.getKorkeus());
         
-        if((r.contains(x6) || r.contains(x5)) && ((this.y + this.korkeus - (Math.abs(this.liikeY) + 1)) < r.y) ){  //lattia
+        if((r.contains(x6) || r.contains(x5)) && ((this.y + this.korkeus - (Math.abs(this.liikeY) + 2)) < r.y) ){  //lattia
             this.y = alusta.getY() - this.korkeus;                                                                 //
             if(this.liikeY<0){                                                                                     //
                 this.liikeY = 0;                                                                                   //
@@ -118,15 +118,15 @@ public class Pelihahmo {
             this.hyppynro = 0;                                                                                     //
         }
         
-        else if((r.contains(x3) || r.contains(x4)) && ((this.x + this.leveys - (Math.abs(this.liikeX) + 1)) < r.x) ) {  //oikea seinä
+        if((r.contains(x3) || r.contains(x4)) && ((this.x + this.leveys - (Math.abs(this.liikeX) + 2)) < r.x) ) {  //oikea seinä
             this.x = alusta.getX() - this.leveys;                                                                  //
         }
         
-        else if((r.contains(x7) || r.contains(x8)) && ((this.x + Math.abs(this.liikeX)+1) > (r.x+r.width)) ){           //vasen seinä
+        else if((r.contains(x7) || r.contains(x8)) && ((this.x + Math.abs(this.liikeX)+2) > (r.x+r.width)) ){      //vasen seinä
             this.x = alusta.getX() + alusta.getLeveys();                                                           //
         }
         
-        else if((r.contains(x1) || r.contains(x2)) && ((this.y + Math.abs(this.liikeY)+1) > (r.y+r.height)) ){          //katto
+        if((r.contains(x1) || r.contains(x2)) && ((this.y + Math.abs(this.liikeY)+2) > (r.y+r.height)) ){          //katto
             this.y = alusta.getY() + alusta.getKorkeus();                                                          //
             if(this.liikeY>0){                                                                                     //
                 this.liikeY = 0;                                                                                   //
@@ -195,9 +195,9 @@ public class Pelihahmo {
             animation.start();
         }
         else{
-            if(k<0)
+            if(katseenSuunta<0)
                 animation = standLeft;
-            else if(k>0)
+            else if(katseenSuunta>0)
                 animation = standRight;
             animation.stop();
             animation.reset();
