@@ -20,6 +20,8 @@ public class Pelihahmo {
     private int hp;
     private int liikeY;
     private int liikeX;
+    private int kiihtyvyys;
+    private final int kitka = 1;
     
     private BufferedImage[] walkingLeft = {Sprite.getSprite(0, 1), Sprite.getSprite(2, 1)}; // Gets the upper left images of my sprite sheet
     private BufferedImage[] walkingRight = {Sprite.getSprite(0, 2), Sprite.getSprite(2, 2)};
@@ -46,6 +48,7 @@ public class Pelihahmo {
         this.korkeus = halkaisija;
         
         this.liikeY = 0;
+        this.kiihtyvyys = 0;
         this.katseenSuunta=1;
         this.hp=5;
         this.ammukset = new ArrayList();
@@ -64,6 +67,7 @@ public class Pelihahmo {
         this.korkeus = korkeus;
         
         this.liikeY = 0;
+        this.kiihtyvyys = 0;
         this.katseenSuunta=1;
         this.hp=5;
         this.ammukset = new ArrayList();
@@ -86,6 +90,17 @@ public class Pelihahmo {
 
     public void liiku(int painovoima, boolean kameraPaikallaanX, boolean kameraPaikallaanY) {
         this.liikeY = this.liikeY - painovoima;
+        
+        this.liikeX = this.liikeX + kiihtyvyys;
+        if(Integer.signum(liikeX) != Integer.signum(liikeX-kitka)){
+            liikeX=0;
+        }else{
+            this.liikeX = this.liikeX - Integer.signum(liikeX)*kitka;
+        }
+        if(Math.abs(liikeX) > 5){
+            this.liikeX = Integer.signum(liikeX)*5;
+        }
+        
         if(kameraPaikallaanY)
             this.y = this.y - this.liikeY;
         
@@ -118,7 +133,7 @@ public class Pelihahmo {
             this.hyppynro = 0;                                                                                     //
         }
         
-        if((r.contains(x3) || r.contains(x4)) && ((this.x + this.leveys - (Math.abs(this.liikeX) + 2)) < r.x) ) {  //oikea seinä
+        else if((r.contains(x3) || r.contains(x4)) && ((this.x + this.leveys - (Math.abs(this.liikeX) + 2)) < r.x) ) {  //oikea seinä
             this.x = alusta.getX() - this.leveys;                                                                  //
         }
         
@@ -182,7 +197,8 @@ public class Pelihahmo {
     }
     
     public void liikuX(int k){
-        liikeX=5*k;
+        kiihtyvyys = 2*k;
+        
         if(k!=0)
             katseenSuunta=k;
         

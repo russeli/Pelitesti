@@ -27,16 +27,16 @@ public class Maailma {
         
         // älä muuta alustojen luontia - Alusta(x, y, leveys, korkeus)
         this.alustat = new ArrayList<Alusta>();
-        this.alustat.add(new Alusta(-32, -32, 64, 640));
-        this.alustat.add(new Alusta(768, -20, 40, 640));
-        this.alustat.add(new Alusta(-32, 576, 960, 64));
+        this.alustat.add(new Alusta(0, -32, 32, 640));
+        this.alustat.add(new Alusta(800, -20, 32, 640));
+        this.alustat.add(new Alusta(-32, 576, 960, 32));
         
-        this.alustat.add(new Alusta(64, 448, 512, 32));
+        //this.alustat.add(new Alusta(64, 448, 512, 32));
+        this.alustat.add(new Alusta(68, 448, 512, 32));
         this.alustat.add(new Alusta(192, 320, 512, 32));
         this.alustat.add(new Alusta(64, 192, 512, 32));
-        this.alustat.add(new Alusta(192, 64, 512, 32));/*
-        this.alustat.add(new Alusta(64, 180, 480, 32));
-        this.alustat.add(new Alusta(256, 100, 500, 32));
+        this.alustat.add(new Alusta(192, 64, 512, 32));
+        /*this.alustat.add(new Alusta(256, 100, 500, 32));
         this.alustat.add(new Alusta(64, 20, 480, 32));
         this.alustat.add(new Alusta(64, 450, 32, 66));*/
         // voit lisätä toki omia alustoja halutessasi!
@@ -93,11 +93,11 @@ public class Maailma {
             //this.pelihahmo.yritaTormataSeinaan(alusta);
         }
         
-        Iterator<Vihollinen> iteVihu = viholliset.iterator();
+        ListIterator<Vihollinen> iteVihu = viholliset.listIterator();
         while(iteVihu.hasNext()){
             Vihollinen vihu = iteVihu.next();
             
-            Iterator<Ammus> iteAmmus = ammukset.iterator();
+            ListIterator<Ammus> iteAmmus = ammukset.listIterator();
             while(iteAmmus.hasNext()){
                 if(iteAmmus.next().tarkistaTormaysVihu(vihu)){
                     //this.pelihahmo.poistaAmmus(iterator);

@@ -21,12 +21,12 @@ public class Ammus {
         this.liikeX=7*k;
     }
     
-    public void liiku(int liikeY, int hahmonLiikeX, boolean kameraPaikallaanX, boolean kameraPaikallaanY) {
+    public void liiku(int hahmonLiikeY, int hahmonLiikeX, boolean kameraPaikallaanX, boolean kameraPaikallaanY) {
         this.x += liikeX;
         if(!kameraPaikallaanX)
             this.x -= hahmonLiikeX;
         if(!kameraPaikallaanY)
-            this.y += liikeY;
+            this.y += hahmonLiikeY;
     }
 
     public boolean tarkistaTormays(Alusta alusta){

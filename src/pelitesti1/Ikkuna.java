@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.ListIterator;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
@@ -19,6 +20,7 @@ public class Ikkuna extends JPanel {
     private int polyx = 130;
     private int polyy = 206;
     private BufferedImage tausta;
+    private BufferedImage hp;
 
     public Ikkuna(Maailma maailma, MenuValinta menuvalinta) {
         this.maailma = maailma;
@@ -26,6 +28,7 @@ public class Ikkuna extends JPanel {
         
         try {
             tausta = ImageIO.read(new File("res/tausta.png"));
+            hp = ImageIO.read(new File("res/hp.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -69,12 +72,14 @@ public class Ikkuna extends JPanel {
         }
         g.setColor(Color.RED);
         
-        for(Vihollinen vihu : viholliset){
+        ListIterator iteVihu = viholliset.listIterator();
+        while(iteVihu.hasNext()){
+            Vihollinen vihu = (Vihollinen)iteVihu.next();
             g.drawRoundRect(vihu.getX(), vihu.getY(), vihu.getLeveys(), vihu.getKorkeus(),3,3);
         }
         
         for(int i = 0; i<maailma.getPelihahmo().getHp(); ++i){
-            g.fillRect(5+i*20, 5, 16, 16);
+            g.drawImage(hp, 5+i*20, 5, 16, 16, null);
         }
         
         if(maailma.getTila()==Maailma.PAUSE){
